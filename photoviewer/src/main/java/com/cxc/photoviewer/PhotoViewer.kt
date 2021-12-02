@@ -28,11 +28,11 @@ class PhotoViewer {
         this.imageEngine = imageEngine
     }
 
-    fun start(activity: Activity, images: ArrayList<String>, view: View? = null) {
+    fun start(activity: Activity, images: ArrayList<String>, pos: Int = 0, view: View? = null) {
         if (images == null || images.size == 0) {
             Log.d("PhotoViewer", "PhotoViewer.start param images size can not be zero")
             return
         }
-        BigImageActivity.startIntent(activity, images, view)
+        BigImageActivity.startIntent(activity, images, pos, view)
     }
 }

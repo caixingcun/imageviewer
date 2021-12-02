@@ -24,6 +24,9 @@ class BigImageActivity : AppCompatActivity() {
     lateinit var viewPager: ViewPager
     lateinit var indicator: CustomIndicator
     lateinit var tvPos: TextView
+    var enterPos: Int = 0
+    var currentPos: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,6 +54,8 @@ class BigImageActivity : AppCompatActivity() {
             return
         }
         paths = intent.getStringArrayListExtra(IMAGES)
+        enterPos = intent.getIntExtra(ENTER_POS, 0)
+        currentPos = enterPos
         initFragments()
         initIndicator()
         initViewPager()
@@ -63,14 +68,14 @@ class BigImageActivity : AppCompatActivity() {
         if (fragments.size > 9) {
             //文字指示器
             tvPos.visibility = View.VISIBLE
-            tvPos.text = "1/${fragments.size}"
+            tvPos.text = "$currentPos/${fragments.size}"
             indicator.visibility = View.INVISIBLE
         } else {
             tvPos.visibility = View.INVISIBLE
             //view指示器
             indicator.visibility = View.VISIBLE
             indicator.setIndicatorSize(fragments.size)
-            indicator.setCurrent(0)
+            indicator.setCurrent(currentPos)
             indicator.isEnabled = false
         }
     }
@@ -117,7 +122,7 @@ class BigImageActivity : AppCompatActivity() {
             }
 
         })
-
+        viewPager.currentItem = currentPos
 
     }
 
@@ -125,12 +130,32 @@ class BigImageActivity : AppCompatActivity() {
         supportFinishAfterTransition()
     }
 
+    override fun supportFinishAfterTransition() {
+        val intent = Intent().apply {
+            if (enterPos == currentPos) {
+                putExtra(IMAGE_CURRENT_POS, -1)
+            } else {
+                putExtra(IMAGE_CURRENT_POS, currentPos)
+            }
+        }
+        setResult(Activity.RESULT_OK, intent)
+        super.supportFinishAfterTransition()
+    }
+
     companion object {
         private const val IMAGES = "images"
+        private const val ENTER_POS = "enter_pos"
+        const val IMAGE_CURRENT_POS = "image_current_pos"
 
-        fun startIntent(activity: Activity, images: ArrayList<String>, view: View? = null) {
+        fun startIntent(
+            activity: Activity,
+            images: ArrayList<String>,
+            pos: Int,
+            view: View? = null
+        ) {
             val intent = Intent(activity, BigImageActivity::class.java)
             intent.putStringArrayListExtra(IMAGES, images)
+            intent.putExtra(ENTER_POS, pos)
             if (view != null) {
                 val compat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, "trans_name")
