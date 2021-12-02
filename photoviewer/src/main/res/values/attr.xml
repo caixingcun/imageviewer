@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomIndicator">
+        <attr name="perWidth" format="dimension"/>
+        <attr name="perHeight" format="dimension"/>
+        <attr name="selectorColor" format="color"/>
+        <attr name="normalColor" format="color" />
+        <attr name="size" format="integer"/>
+    </declare-styleable>
+</resources>

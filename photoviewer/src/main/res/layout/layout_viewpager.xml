@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:transitionName="trans_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.cxc.photoviewer.CustomIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:visibility="invisible"
+        app:normalColor="#888888"
+        app:perHeight="7dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        app:perWidth="15dp"
+        app:selectorColor="#ffffff"
+        app:size="2"
+        tools:visibility="visible" />
+</RelativeLayout>
