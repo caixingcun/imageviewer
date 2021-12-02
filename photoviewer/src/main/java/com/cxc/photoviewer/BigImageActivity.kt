@@ -9,6 +9,7 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -22,7 +23,7 @@ class BigImageActivity : AppCompatActivity() {
 
     lateinit var viewPager: ViewPager
     lateinit var indicator: CustomIndicator
-
+    lateinit var tvPos: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -56,11 +57,22 @@ class BigImageActivity : AppCompatActivity() {
     }
 
     private fun initIndicator() {
+
+        tvPos = findViewById(R.id.tv_pos)
         indicator = findViewById<CustomIndicator>(R.id.indicator)
-        indicator.setIndicatorSize(fragments.size)
-        indicator.setCurrent(0)
-        indicator.visibility = View.VISIBLE
-        indicator.isEnabled = false
+        if (fragments.size > 9) {
+            //文字指示器
+            tvPos.visibility = View.VISIBLE
+            tvPos.text = "1/${fragments.size}"
+            indicator.visibility = View.INVISIBLE
+        } else {
+            tvPos.visibility = View.INVISIBLE
+            //view指示器
+            indicator.visibility = View.VISIBLE
+            indicator.setIndicatorSize(fragments.size)
+            indicator.setCurrent(0)
+            indicator.isEnabled = false
+        }
     }
 
     var fragments: MutableList<Fragment> = ArrayList()
@@ -93,7 +105,11 @@ class BigImageActivity : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                indicator.setCurrent(position)
+                if (fragments.size > 9) {
+                    tvPos.text = "${position + 1}/${fragments.size}"
+                } else {
+                    indicator.setCurrent(position)
+                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {
