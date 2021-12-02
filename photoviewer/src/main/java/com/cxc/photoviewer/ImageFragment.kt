@@ -44,7 +44,7 @@ class ImageFragment : Fragment() {
 
         PhotoViewer.getInstance().imageEngine?.load(context, photoView, path)
 
-        mAttacher?.setOnPhotoTapListener { _, _, _ -> activity?.finish() }
+        mAttacher?.setOnPhotoTapListener { _, _, _ -> activity?.finishAfterTransition() }
     }
 
 }
