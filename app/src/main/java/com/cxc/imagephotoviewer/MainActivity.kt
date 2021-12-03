@@ -4,14 +4,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
-import androidx.core.app.ActivityCompat
-import androidx.core.app.SharedElementCallback
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -35,6 +30,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initRecyclerView()
         initImage()
+        initButton()
+
+    }
+
+    private fun initButton() {
+        findViewById<Button>(R.id.btn).setOnClickListener {
+            startActivity(Intent(this,TemplateActivity::class.java))
+        }
     }
 
     private fun initImage() {

@@ -191,7 +191,16 @@ class BigImageActivity : AppCompatActivity() {
         ) {
             if (resultCode == RESULT_OK && data != null) {
                 val exitPos = data.getIntExtra(IMAGE_CURRENT_POS, -1)
-                var exitView = getExitViewBlock.invoke(uniqueIdValue, exitPos)
+                if (exitPos == -1) {
+                    return
+                }
+                var exitView: View? = null
+                try {
+                    exitView = getExitViewBlock.invoke(uniqueIdValue, exitPos)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    return
+                }
                 if (exitView == null) {
                     Log.d("tag", "onActivityReenter exitView null")
                     return
