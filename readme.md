@@ -10,12 +10,13 @@
 ~~~
  样例主要包含 单图，多图，以及Fragment中多图预览
 ~~~
+![样例](https://github.com/caixingcun/imageviewer/blob/master/gif/GIF.gif)
 # dependencies
 ~~~
 project 
     build.gradle 
     
-    allprojects {
+    allprojects {s
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
