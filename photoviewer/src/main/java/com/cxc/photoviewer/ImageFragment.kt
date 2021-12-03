@@ -44,7 +44,12 @@ class ImageFragment : Fragment() {
 
         PhotoViewer.getInstance().imageEngine?.load(context, photoView, path)
 
-        mAttacher?.setOnPhotoTapListener { _, _, _ -> activity?.finishAfterTransition() }
+        mAttacher?.setOnPhotoTapListener { _, _, _ ->
+            activity?.let {
+                val bigActivity = activity as BigImageActivity?
+                bigActivity?.supportFinishAfterTransition()
+            }
+        }
     }
 
 }
