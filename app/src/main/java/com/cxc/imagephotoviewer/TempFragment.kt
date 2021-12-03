@@ -10,15 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.cxc.photoviewer.IPhotoViewerEndViewCallback
 import com.cxc.photoviewer.ImageEngine
-import com.cxc.photoviewer.PhotoViewer
+import com.cxc.photoviewer.ImagesViewer
 
 /**
  * @author caixingcun
  * @date 2021/12/3
  * Description :
  */
-class TestFragment : Fragment() {
+class TempFragment : Fragment(), IPhotoViewerEndViewCallback {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,7 +59,7 @@ class TestFragment : Fragment() {
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
             activity?.let {
-                PhotoViewer.getInstance().apply {
+                ImagesViewer.getInstance().apply {
                     init(imageEngine = object : ImageEngine {
                         override fun load(context: Context?, image: ImageView, path: String?) {
                             context?.let {
@@ -67,13 +68,16 @@ class TestFragment : Fragment() {
                         }
 
                     })
-                }.start(it, mUrls, position, view)
+                    start(it, mUrls, position, view,R.id.recycler_view)
+                }
             }
         }
-
     }
 
-    fun getEndView(unique: Int, pos: Int): View? {
-        return mAdapter?.getViewByPosition(pos, R.id.iv)
+    override fun getPhotoViewEndViewForTransaction(uniqueId: Int, endPos: Int): View? {
+        if (uniqueId == R.id.recycler_view) {
+            return mAdapter.getViewByPosition(endPos, R.id.iv)
+        }
+        return null
     }
 }

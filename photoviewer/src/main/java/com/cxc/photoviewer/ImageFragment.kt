@@ -42,7 +42,7 @@ class ImageFragment : Fragment() {
         mAttacher = PhotoViewAttacher(photoView)
         var path = arguments?.getString(PATH)
 
-        PhotoViewer.getInstance().imageEngine?.load(context, photoView, path)
+        ImagesViewer.getInstance().imageEngine?.load(context, photoView, path)
 
         mAttacher?.setOnPhotoTapListener { _, _, _ ->
             activity?.let {

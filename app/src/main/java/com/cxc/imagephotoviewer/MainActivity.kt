@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.cxc.photoviewer.BigImageActivity
+import com.cxc.photoviewer.IPhotoViewerEndViewCallback
 import com.cxc.photoviewer.ImageEngine
-import com.cxc.photoviewer.PhotoViewer
+import com.cxc.photoviewer.ImagesViewer
 import java.util.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IPhotoViewerEndViewCallback {
     companion object {
         const val imgUrl =
             "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F53%2F0a%2Fda%2F530adad966630fce548cd408237ff200.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1641101385&t=f62bb49a35a61c4844cfcfcf5b56ccc5"
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initButton() {
         findViewById<Button>(R.id.btn).setOnClickListener {
-            startActivity(Intent(this,TemplateActivity::class.java))
+            startActivity(Intent(this, TemplateActivity::class.java))
         }
     }
 
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         var iv = findViewById<ImageView>(R.id.iv)
         Glide.with(this).load(imgUrl).into(iv)
         iv.setOnClickListener {
-            PhotoViewer.getInstance().apply {
+            ImagesViewer.getInstance().apply {
                 init(imageEngine = object : ImageEngine {
                     override fun load(context: Context?, image: ImageView, path: String?) {
                         context?.let {
@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 })
-            }.start(this, arrayListOf(imgUrl), 0, iv)
+                start(this@MainActivity, arrayListOf(imgUrl), 0, iv)
+            }
         }
     }
 
@@ -80,22 +81,22 @@ class MainActivity : AppCompatActivity() {
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
 
-            PhotoViewer.getInstance().apply {
-                imageEngine = object : ImageEngine {
+            ImagesViewer.getInstance().apply {
+                init(object : ImageEngine {
                     override fun load(context: Context?, image: ImageView, path: String?) {
                         context?.let {
                             Glide.with(it).load(path).into(image)
                         }
                     }
-                }
-            }.start(
-                this@MainActivity,
-                getArrayList(mAdapter.data),
-                position,
-                view,
-
+                })
+                start(
+                    this@MainActivity,
+                    getArrayList(mAdapter.data),
+                    position,
+                    view,
+                    recyclerView.id
                 )
-
+            }
         }
 
     }
@@ -109,18 +110,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
-        BigImageActivity.onActivityReenterHandle(this, resultCode, data) { uniqueId, pos ->
-            getExitView(pos)
-        }
+        ImagesViewer.onActivityReenterHandle(this, resultCode, data)
     }
 
-    private fun getExitView(exitPos: Int): View? {
-        if (exitPos == -1) {
-            return null
+    override fun getPhotoViewEndViewForTransaction(uniqueId: Int, endPos: Int):View? {
+        if (uniqueId == R.id.recycler_view) {
+            return mAdapter.getViewByPosition(endPos, R.id.iv)
         }
-        return mAdapter.getViewByPosition(exitPos, R.id.iv)
+        return null
     }
-
 
 }
 

@@ -4,12 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.cxc.photoviewer.BigImageActivity
+import com.cxc.photoviewer.ImagesViewer
 
 class TemplateActivity : AppCompatActivity() {
 
     lateinit var fl: FrameLayout
-    var fragment = TestFragment()
+    var fragment = TempFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_template)
@@ -19,10 +19,6 @@ class TemplateActivity : AppCompatActivity() {
 
     override fun onActivityReenter(resultCode: Int, data: Intent?) {
         super.onActivityReenter(resultCode, data)
-        BigImageActivity.onActivityReenterHandle(this,resultCode,data){ uniqueId, pos ->
-            fragment.getEndView(unique = uniqueId,pos=pos)
-        }
+        ImagesViewer.onActivityReenterHandle(this,resultCode,data)
     }
-
-
 }

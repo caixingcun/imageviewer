@@ -174,56 +174,5 @@ class BigImageActivity : AppCompatActivity() {
                 activity.startActivity(intent)
             }
         }
-
-        /**
-         * 供外部调用者处理 专场动画 需要在onActivityReenter来实现
-         * @param context
-         * @param resultCode
-         * @param data
-         * @param getExitViewBlock 需要使用者解析回传一个 endView 供转厂动画 endView 使用，
-         *          根据 uniqueId 唯一标识，使用者自己传过来，单层列表可以不传，pos 结束时位置 确定一个endView
-         */
-        fun onActivityReenterHandle(
-            activity: AppCompatActivity,
-            resultCode: Int,
-            data: Intent?,
-            getExitViewBlock: (uniqueId: Int, pos: Int) -> View?
-        ) {
-            if (resultCode == RESULT_OK && data != null) {
-                val exitPos = data.getIntExtra(IMAGE_CURRENT_POS, -1)
-                if (exitPos == -1) {
-                    return
-                }
-                var exitView: View? = null
-                try {
-                    exitView = getExitViewBlock.invoke(uniqueIdValue, exitPos)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    return
-                }
-                if (exitView == null) {
-                    Log.d("tag", "onActivityReenter exitView null")
-                    return
-                }
-                ActivityCompat.setExitSharedElementCallback(
-                    activity,
-                    object : SharedElementCallback() {
-                        override fun onMapSharedElements(
-                            names: MutableList<String>?,
-                            sharedElements: MutableMap<String, View>?
-                        ) {
-                            if (names == null || sharedElements == null) {
-                                return
-                            }
-                            names.clear()
-                            sharedElements.clear()
-                            names.add(TRANS_NAME)
-                            sharedElements[TRANS_NAME] = exitView
-                            activity.setExitSharedElementCallback(object :
-                                SharedElementCallback() {})
-                        }
-                    })
-            }
-        }
     }
 }
