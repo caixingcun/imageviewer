@@ -20,7 +20,8 @@ import java.util.ArrayList
 class MainActivity : AppCompatActivity(), IPhotoViewerEndViewCallback {
     companion object {
         const val imgUrl =
-            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F53%2F0a%2Fda%2F530adad966630fce548cd408237ff200.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1641101385&t=f62bb49a35a61c4844cfcfcf5b56ccc5"
+//            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F53%2F0a%2Fda%2F530adad966630fce548cd408237ff200.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1641101385&t=f62bb49a35a61c4844cfcfcf5b56ccc5"
+        "https://t7.baidu.com/it/u=3093477943,472212470&fm=193&f=GIF"
     }
 
     lateinit var recyclerView: RecyclerView

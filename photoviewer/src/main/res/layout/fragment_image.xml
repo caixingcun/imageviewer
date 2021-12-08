@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photo_view"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:background="#000"
         android:adjustViewBounds="true"
         android:src="@mipmap/nav_back_w"
