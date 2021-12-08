@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/work/ImagePhotoViewer/app/src/main/res/layout/activity_main.xml" value="0.13645833333333332" />
+        <entry key="..\:/Android/work/ImagePhotoViewer/app/src/main/res/layout/fragment_template.xml" value="0.22604166666666667" />
         <entry key="..\:/Android/work/ImagePhotoViewer/app/src/main/res/layout/item.xml" value="0.225" />
         <entry key="..\:/Android/work/ImagePhotoViewer/photoviewer/src/main/res/layout/activity_big_image.xml" value="0.20677083333333332" />
         <entry key="..\:/Android/work/ImagePhotoViewer/photoviewer/src/main/res/layout/fragment_image.xml" value="0.15833333333333333" />
