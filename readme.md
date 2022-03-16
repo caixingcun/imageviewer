@@ -25,7 +25,7 @@ project
 --------------------------------
 app build.gradle 
 
-   implementation 'com.github.caixingcun:imageviewer:v1.5'
+   implementation 'com.github.caixingcun:imageviewer:v1.9'
 ~~~
 
 # use
