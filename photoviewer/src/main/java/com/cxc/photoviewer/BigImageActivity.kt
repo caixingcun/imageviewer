@@ -22,7 +22,7 @@ import java.util.ArrayList
 class BigImageActivity : AppCompatActivity() {
     private var paths: List<String>? = null
 
-    lateinit var viewPager: ViewPager
+    lateinit var viewPager: ViewPagerFixed
     lateinit var indicator: CustomIndicator
     lateinit var tvPos: TextView
     var enterPos: Int = 0
@@ -95,7 +95,7 @@ class BigImageActivity : AppCompatActivity() {
     }
 
     private fun initViewPager() {
-        viewPager = findViewById<ViewPager>(R.id.view_pager)
+        viewPager = findViewById<ViewPagerFixed>(R.id.view_pager)
         viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 return fragments[position]
