@@ -9,7 +9,6 @@
         android:id="@+id/photo_view"
         android:background="#000"
         android:layout_gravity="center"
-        android:src="@mipmap/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
